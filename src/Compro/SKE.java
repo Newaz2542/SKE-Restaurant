@@ -13,6 +13,8 @@ public class SKE {
 	static int QPizza;static int QChicken;static int QCoke;
 	static int save;static int save2;static int save3;
 	static String ans;
+	static String[] menu = {"Pizza","Chicken","Coke","Total","Exit"};
+	static int [] price = {250,120,45};
 	//The main process
 	static void askChoice () {
 		if(choice != 4) {
@@ -25,19 +27,26 @@ public class SKE {
 	//show the menu
 	static void menu() {
 		System.out.printf("--------- Welcome to SKE Restaurant ---------%n");
-		System.out.printf("1.) Pizza\t\t %5d Baht%n", 250);
-		System.out.printf("2.) Chicken\t\t %5d Baht%n", 120);
-		System.out.printf("3.) Coke\t\t %5d Baht%n", 45);
-		System.out.printf("4.) Total%n");
-		System.out.printf("5.) Exit%n%n");
+		int number = 0;
+		for (int numMenu = 0 ;numMenu <= 2;numMenu++) {
+			number++;
+			for(int numPrice = numMenu;numPrice <= numMenu;numPrice++) {
+		System.out.printf("%d.) %s\t\t %5d Baht%n",number,menu[numMenu], price[numPrice]);
+			}
+		}
+		System.out.printf("4.) %s%n",menu[3]);
+		System.out.printf("5.) %sn%n",menu[4]);
+			
+		
 	}
 	//pick menu here
 	static int select(int choice, int quantity) {
-		if (choice == 1) {QPizza += quantity;PPizza = 250 * QPizza;save = 1;} 
-		else if (choice == 2) {QChicken += quantity;PChicken = 120 * QChicken;save2 = 1;} 
-		else if (choice == 3) {QCoke += quantity;PCoke = 45 * QCoke;save3 = 1;}
-		else {
+		if (choice == 1) {QPizza += quantity;PPizza = price[0] * QPizza;save = 1;} 
+		else if (choice == 2) {QChicken += quantity;PChicken = price[1] * QChicken;save2 = 1;} 
+		else if (choice == 3) {QCoke += quantity;PCoke = price[2] * QCoke;save3 = 1;}
+		else if (choice >5 || choice <0){
 			System.out.println("Invalid select!!\n");
+			
 		}
 		return save|save2|save3;
 	}
@@ -48,22 +57,22 @@ public class SKE {
 	//show bill that total has been discount
 	static void billWingame() {
 		  System.out.println("+------ Menu ------+-- Qty --+-- Price --+");
-	  if(save==1){System.out.printf("| Pizza            |  %5d  |    %5d  |\n",QPizza,PPizza);}
-	  if(save2==1){System.out.printf("| Chikens          |  %5d  |    %5d  |\n",QChicken,PChicken);}
-	  if(save3==1){System.out.printf("| Coke             |  %5d  |    %5d  |\n",QCoke,PCoke);}
+	  if(save==1){System.out.printf("| %s            |  %5d  |    %5d  |\n",menu[0],QPizza,PPizza);}
+	  if(save2==1){System.out.printf("| %s          |  %5d  |    %5d  |\n",menu[1],QChicken,PChicken);}
+	  if(save3==1){System.out.printf("| %s             |  %5d  |    %5d  |\n",menu[2],QCoke,PCoke);}
 		  System.out.println("| Game             |         |       50  |");
 		  System.out.println("+------------------+---------+-----------+");
-		  System.out.println("|              Discount 20 %             |");
+		  System.out.println("|              Discount 10 %             |");
 		  System.out.println("+------------------+---------+-----------+");
-		  totalBill (((PPizza+PChicken+PCoke+50)*80)/100);
+		  totalBill (((PPizza+PChicken+PCoke+50)*90)/100);
 		  System.out.println("+------------------+---------+-----------+\n");
 	}
 	//show bill that add game price
 		  static void billPaypromo() {
 			  System.out.println("+------ Menu ------+-- Qty --+-- Price --+");
-      if(save==1){System.out.printf("| Pizza            |  %5d  |    %5d  |\n",QPizza,PPizza);}
-      if(save2==1){System.out.printf("| Chikens          |  %5d  |    %5d  |\n",QChicken,PChicken);}
-      if(save3==1){System.out.printf("| Coke             |  %5d  |    %5d  |\n",QCoke,PCoke);}
+      if(save==1){System.out.printf("| %s            |  %5d  |    %5d  |\n",menu[0],QPizza,PPizza);}
+      if(save2==1){System.out.printf("| %s          |  %5d  |    %5d  |\n",menu[1],QChicken,PChicken);}
+      if(save3==1){System.out.printf("| %s             |  %5d  |    %5d  |\n",menu[2],QCoke,PCoke);}
       	  System.out.println("| Game             |         |       50  |");
       	  System.out.println("+------------------+---------+-----------+");
           totalBill (PPizza+PChicken+PCoke+50);
@@ -73,9 +82,9 @@ public class SKE {
 		  static void bill (int choice) {
 		  if(choice==4){
 			  System.out.println("+------ Menu ------+-- Qty --+-- Price --+");
-        if(save==1){System.out.printf("| Pizza            |  %5d  |    %5d  |\n",QPizza,PPizza);}
-        if(save2==1){System.out.printf("| Chikens          |  %5d  |    %5d  |\n",QChicken,PChicken);}
-        if(save3==1){System.out.printf("| Coke             |  %5d  |    %5d  |\n",QCoke,PCoke);}
+        if(save ==1){System.out.printf("| %s            |  %5d  |    %5d  |\n",menu[0],QPizza,PPizza);}
+        if(save2==1){System.out.printf("| %s          |  %5d  |    %5d  |\n",menu[1],QChicken,PChicken);}
+        if(save3==1){System.out.printf("| %s             |  %5d  |    %5d  |\n",menu[2],QCoke,PCoke);}
             System.out.println("+------------------+---------+-----------+");
             totalBill (PPizza+PChicken+PCoke);
             System.out.println("+------------------+---------+-----------+\n");
@@ -89,21 +98,21 @@ public class SKE {
 	static void yesInput() {
 		int r;
 		System.out.println("----- Promotion is to play a game -----");
-		System.out.println("  ----- WHICH HAND is the COIN ? -----");
-		System.out.println("(If you win you get discount for 20%)");
+		System.out.println("  ----- Which hand is the coin in ? -----");
+		System.out.println("(If you win you get discount for 10%)");
 		System.out.println("    ----- Pay 50 bath to play -----");
 		System.out.print("(P)lay or (Q)uit : ");
 		String PorQ = sc.next();
 		if (PorQ.equals("p") || PorQ.equals("P")){
 			billPaypromo();
-			gameRunner();
+			gameLuncher();
 		}
 		else if (PorQ.equals("q") || PorQ.equals("Q")){
 			System.out.print("\n===== Thank you come again =====");
 		}
 	}
 	//Run game
-	static void gameRunner() {
+	static void gameLuncher() {
 		System.out.println("      ----- Start -----");
 		System.out.println("(1)Left hand or Right hand(2)");
 		System.out.print("Select your hand : ");
