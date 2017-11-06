@@ -1,0 +1,6 @@
+# Description; price
+Pizza;  220.0
+Omlet; 110.0
+Salad;   30.0
+Ice Tea;        20.0
+Water; 7.0
