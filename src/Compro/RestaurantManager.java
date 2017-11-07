@@ -1,21 +1,24 @@
 package Compro;
+
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
- * This class is used for reading files from menu.txt
- * and then store it in each variable.
+ * This class is used for reading files from menu.txt and then store it in each
+ * variable.
  * 
  * @author Vichakorn Yotboonrueang
  */
 
 public class RestaurantManager {
-	
+
 	private static ArrayList<String> isMenu = new ArrayList<String>();
 	private static ArrayList<Double> isPrice = new ArrayList<Double>();
-	
-	static void setMenu(){
+	private static ArrayList<Integer> isOrder = new ArrayList<Integer>();
+	private static ArrayList<Double> isTotalPrice = new ArrayList<Double>();
+
+	static void setMenu() {
 		String menuFile = "data/menu.txt";
 		ClassLoader loader = RestaurantManager.class.getClassLoader();
 
@@ -38,24 +41,37 @@ public class RestaurantManager {
 			isPrice.add(Double.parseDouble(array[1]));
 		}
 		scanFile.close();
-}
-	
-	public static String[] getMenuItems(){
-		String[] itemMenu  = isMenu.toArray(new String[isMenu.size()]);
+	}
+
+	public static String[] getMenuItems() {
+		String[] itemMenu = isMenu.toArray(new String[isMenu.size()]);
 		return itemMenu;
 	}
-	
-	public static double[] getPrices(){
+
+	public static double[] getPrices() {
 		double[] priceMenu = new double[isPrice.size()];
-		for (int x = 0; x<priceMenu.length; x++){
+		for (int x = 0; x < priceMenu.length; x++) {
 			priceMenu[x] = isPrice.get(x);
 		}
 		return priceMenu;
 	}
+
+	public static ArrayList<Integer> getOrder() {
+		for (int i = 0; i < getMenuItems().length; i++) {
+			isOrder.add(0);
+		}
+		return isOrder;
+	}
+
+	public static ArrayList<Double> getTotalPrice() {
+		for (int i = 0; i < getMenuItems().length; i++) {
+			isTotalPrice.add((double) 0);
+		}
+		return isTotalPrice;
+	}
+
 	static void init() {
 		setMenu();
 	}
-	
-
 
 }
