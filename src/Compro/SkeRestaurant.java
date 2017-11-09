@@ -57,7 +57,7 @@ public class SkeRestaurant {
 	 */
 
 	@SuppressWarnings("static-access")
-	static int askChoice(int choiceC) {
+	public static int askChoice(int choiceC) {
 
 		if (choiceC > rm.getMenuItems().length + 1 || choiceC <= 0) {
 			System.out.print("Don't have on the list,Try again\n");
@@ -80,7 +80,7 @@ public class SkeRestaurant {
 	 * @return
 	 */
 
-	static int addOrder(int choiceC, int choiceQ) {
+	public static int addOrder(int choiceC, int choiceQ) {
 		int order;
 		double[] price = RestaurantManager.getPrices();
 		for (int i = 0; i < price.length; i++) {
@@ -98,13 +98,13 @@ public class SkeRestaurant {
 	 * Add order to ArrayList<Double> itemPrice
 	 * 
 	 * @param choiceC
-	 *            is menu.
+	 *        is menu.
 	 * @param choiceQ
-	 *            is quantity of menu.
+	 *        is quantity of menu.
 	 * @return
 	 */
 
-	static int addPrice(int choiceC, int choiceQ) {
+	public static int addPrice(int choiceC, int choiceQ) {
 		double totalPrice;
 		double[] price = RestaurantManager.getPrices();
 		for (int i = 0; i < price.length; i++) {
@@ -121,12 +121,11 @@ public class SkeRestaurant {
 	 * When press p this method show bill to customer
 	 * 
 	 * @param choice
-	 *            is choice from menu.(make method dicide to show bill that customer
-	 *            pick in menu.)
+	 *        is choice from menu.(make method decide to show bill that customer pick in menu.)
 	 */
 
 	@SuppressWarnings("static-access")
-	static void menuBill(int choice) {
+	public static void menuBill(int choice) {
 		String[] menu = rm.getMenuItems();
 		double[] price = rm.getPrices();
 		dateAndtime();
@@ -148,7 +147,7 @@ public class SkeRestaurant {
 	 * This method create date and time.
 	 */
 
-	static void dateAndtime() {
+	public static void dateAndtime() {
 		LocalDate date = LocalDate.now();
 		LocalTime time = LocalTime.now();
 		System.out.printf("\t      %s ", "SKE Restaurant");
@@ -162,7 +161,7 @@ public class SkeRestaurant {
 	 * @return
 	 */
 
-	static double totalBill() {
+	public static double totalBill() {
 		double sumPrice = 0;
 		for (double x : itemPrice) {
 			sumPrice += x;
@@ -174,7 +173,7 @@ public class SkeRestaurant {
 	 * Clean for read
 	 */
 
-	static void createList() {
+	public static void createList() {
 		setOrder();
 		setTotalPrice();
 	}
@@ -186,7 +185,7 @@ public class SkeRestaurant {
 	 */
 
 	@SuppressWarnings("static-access")
-	static ArrayList<Integer> setOrder() {
+	public static ArrayList<Integer> setOrder() {
 		itemOrder = rm.getOrder();
 		return itemOrder;
 	}
@@ -198,7 +197,7 @@ public class SkeRestaurant {
 	 */
 
 	@SuppressWarnings("static-access")
-	static ArrayList<Double> setTotalPrice() {
+	public static ArrayList<Double> setTotalPrice() {
 		itemPrice = rm.getTotalPrice();
 		return itemPrice;
 	}
@@ -209,7 +208,7 @@ public class SkeRestaurant {
 	 * @param args
 	 */
 
-	static void recordOrder() throws IOException {
+	public static void recordOrder() throws IOException {
 		String allOrder = RestaurantManager.recordAllOrder(itemOrder);
 		RestaurantManager.writeToFile(allOrder);
 	}

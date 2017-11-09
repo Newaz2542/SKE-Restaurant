@@ -11,8 +11,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 
 /**
- * This class is used for reading files from menu.txt and then store it in each
- * variable.
+ * This class is for RestaurantManager
  * 
  * @author Vichakorn Yotboonrueang
  */
@@ -20,11 +19,18 @@ import java.time.LocalTime;
 public class RestaurantManager {
 
 	private static ArrayList<String> isMenu = new ArrayList<String>();
+
 	private static ArrayList<Double> isPrice = new ArrayList<Double>();
+
 	private static ArrayList<Integer> isOrder = new ArrayList<Integer>();
+
 	private static ArrayList<Double> isTotalPrice = new ArrayList<Double>();
 
-	static void setMenu() {
+	/**
+	 * Read text form menu.txt
+	 */
+
+	public static void setMenu() {
 		String menuFile = "data/menu.txt";
 		ClassLoader loader = RestaurantManager.class.getClassLoader();
 
@@ -49,10 +55,22 @@ public class RestaurantManager {
 		scanFile.close();
 	}
 
+	/**
+	 * Make ArrayList to Array than return.
+	 * 
+	 * @return
+	 */
+
 	public static String[] getMenuItems() {
 		String[] itemMenu = isMenu.toArray(new String[isMenu.size()]);
 		return itemMenu;
 	}
+
+	/**
+	 * Make ArrayList to Array than return.
+	 * 
+	 * @return
+	 */
 
 	public static double[] getPrices() {
 		double[] priceMenu = new double[isPrice.size()];
@@ -62,6 +80,12 @@ public class RestaurantManager {
 		return priceMenu;
 	}
 
+	/**
+	 * create a room for value
+	 * 
+	 * @return
+	 */
+
 	public static ArrayList<Integer> getOrder() {
 		for (int i = 0; i < getMenuItems().length; i++) {
 			isOrder.add(0);
@@ -69,12 +93,25 @@ public class RestaurantManager {
 		return isOrder;
 	}
 
+	/**
+	 * create a room for value
+	 * 
+	 * @return
+	 */
+
 	public static ArrayList<Double> getTotalPrice() {
 		for (int i = 0; i < getMenuItems().length; i++) {
 			isTotalPrice.add((double) 0);
 		}
 		return isTotalPrice;
 	}
+
+	/**
+	 * create RecordOrder.txt for save log of ske-restaurant.
+	 * 
+	 * @param allOrder
+	 * @throws IOException
+	 */
 
 	public static void writeToFile(String allOrder) throws IOException {
 		File createTxt = new File("src/data/RecordOrder.txt");
@@ -91,6 +128,13 @@ public class RestaurantManager {
 
 	}
 
+	/**
+	 * save the String of sales log before put to RecordOrder.txt
+	 * 
+	 * @param itemOrder
+	 * @return
+	 */
+
 	public static String recordAllOrder(ArrayList<Integer> itemOrder) {
 		String[] menu = RestaurantManager.getMenuItems();
 		String text = "";
@@ -101,12 +145,15 @@ public class RestaurantManager {
 			}
 
 		}
-		
-		return String.format("\nDate: " + LocalDate.now() + "\nTime: " + LocalTime.now()
-				+ "\nSales Log is \n%s", text);
+
+		return String.format("\nDate: " + LocalDate.now() + "\nTime: " + LocalTime.now() + "\nSales Log is \n%s", text);
 	}
 
-	static void init() {
+	/**
+	 * Start Reading menu.txt
+	 */
+
+	public static void init() {
 		setMenu();
 	}
 
