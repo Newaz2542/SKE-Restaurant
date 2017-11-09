@@ -1,0 +1,9 @@
+
+Date: 2017-11-09
+Time: 21:52:44.801
+Sales Log is 
+Pizza              1
+Omlet              2
+Salad              2
+Ice Tea            2
+Water              2

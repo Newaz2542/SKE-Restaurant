@@ -1,6 +1,7 @@
 package Compro;
 
 import java.util.Scanner;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -12,15 +13,21 @@ import java.util.ArrayList;
  * 
  * @author Vichakorn Yotboonrueang
  */
+
 public class SkeRestaurant {
 
-	// all Variable
 	static Scanner sc = new Scanner(System.in);
+
 	private static RestaurantManager rm;
+
 	private static ArrayList<Integer> itemOrder = new ArrayList<Integer>();
+
 	private static ArrayList<Double> itemPrice = new ArrayList<Double>();
 
-	// show the menu
+	/**
+	 * Show the menu for customer.
+	 */
+
 	@SuppressWarnings("static-access")
 	public static void menu() {
 		rm = new RestaurantManager();
@@ -42,7 +49,13 @@ public class SkeRestaurant {
 
 	}
 
-	// The main process
+	/**
+	 * Save menu form customer, add to order,price.
+	 * 
+	 * @param choiceC
+	 * @return
+	 */
+
 	@SuppressWarnings("static-access")
 	static int askChoice(int choiceC) {
 
@@ -51,13 +64,23 @@ public class SkeRestaurant {
 		} else {
 			System.out.print("Enter Quantity: ");
 			int choiceQ = sc.nextInt();
-			addOrder(choiceC,choiceQ);
-			addPrice(choiceC,choiceQ);
+			addOrder(choiceC, choiceQ);
+			addPrice(choiceC, choiceQ);
 		}
 		return choiceC;
 	}
 
-	static int addOrder(int choiceC,int choiceQ) {
+	/**
+	 * Add order to ArrayList<Integer> itemOrder
+	 * 
+	 * @param choiceC
+	 *            is menu.
+	 * @param choiceQ
+	 *            is quantity of menu.
+	 * @return
+	 */
+
+	static int addOrder(int choiceC, int choiceQ) {
 		int order;
 		double[] price = RestaurantManager.getPrices();
 		for (int i = 0; i < price.length; i++) {
@@ -71,12 +94,22 @@ public class SkeRestaurant {
 		return choiceQ;
 	}
 
-	static int addPrice(int choiceC,int choiceQ) {
+	/**
+	 * Add order to ArrayList<Double> itemPrice
+	 * 
+	 * @param choiceC
+	 *            is menu.
+	 * @param choiceQ
+	 *            is quantity of menu.
+	 * @return
+	 */
+
+	static int addPrice(int choiceC, int choiceQ) {
 		double totalPrice;
 		double[] price = RestaurantManager.getPrices();
 		for (int i = 0; i < price.length; i++) {
-			if (choiceC == i+1) {
-				totalPrice = (price[i]+itemPrice.get(i)) * choiceQ;
+			if (choiceC == i + 1) {
+				totalPrice = (price[i] + itemPrice.get(i)) * choiceQ;
 				itemPrice.add(i, totalPrice);
 				itemPrice.remove(i + 1);
 			}
@@ -84,19 +117,25 @@ public class SkeRestaurant {
 		return choiceQ;
 	}
 
-	// show bill when you select choice p
+	/**
+	 * When press p this method show bill to customer
+	 * 
+	 * @param choice
+	 *            is choice from menu.(make method dicide to show bill that customer
+	 *            pick in menu.)
+	 */
+
 	@SuppressWarnings("static-access")
-	static void bill(int choice) {
+	static void menuBill(int choice) {
 		String[] menu = rm.getMenuItems();
 		double[] price = rm.getPrices();
 		dateAndtime();
 		System.out.println("+------ Menu ------+-- Qty --+-- Price --+");
 		for (int i = 0; i < rm.getMenuItems().length; i++) {
-			if (price[i] * itemOrder.get(i) != 0 ) {
+			if (price[i] * itemOrder.get(i) != 0) {
 				System.out.printf("|%10s   \t|%2d  \t     |%6.2f\t |\n", menu[i], itemOrder.get(i), itemPrice.get(i));
 			}
-			
-			
+
 		}
 
 		System.out.println("+------------------+---------+-----------+");
@@ -104,6 +143,10 @@ public class SkeRestaurant {
 		System.out.println("+------------------+---------+-----------+\n");
 
 	}
+
+	/**
+	 * This method create date and time.
+	 */
 
 	static void dateAndtime() {
 		LocalDate date = LocalDate.now();
@@ -113,7 +156,12 @@ public class SkeRestaurant {
 		System.out.println("   Date: " + date + "  Time: " + time);
 	}
 
-	// print total price
+	/**
+	 * Calculation the total price of the bill.
+	 * 
+	 * @return
+	 */
+
 	static double totalBill() {
 		double sumPrice = 0;
 		for (double x : itemPrice) {
@@ -122,10 +170,20 @@ public class SkeRestaurant {
 		return sumPrice;
 	}
 
+	/**
+	 * Clean for read
+	 */
+
 	static void createList() {
 		setOrder();
 		setTotalPrice();
 	}
+
+	/**
+	 * Make itemOrder(ArrayList) have a room equal the menu.
+	 * 
+	 * @return
+	 */
 
 	@SuppressWarnings("static-access")
 	static ArrayList<Integer> setOrder() {
@@ -133,13 +191,30 @@ public class SkeRestaurant {
 		return itemOrder;
 	}
 
+	/**
+	 * Make itemPrice(ArrayList) have a room equal the menu.
+	 * 
+	 * @return
+	 */
+
 	@SuppressWarnings("static-access")
 	static ArrayList<Double> setTotalPrice() {
 		itemPrice = rm.getTotalPrice();
 		return itemPrice;
 	}
 
-	public static void main(String[] args) {
+	/**
+	 * Save record of this restaurant
+	 * 
+	 * @param args
+	 */
+
+	static void recordOrder() throws IOException {
+		String allOrder = RestaurantManager.recordAllOrder(itemOrder);
+		RestaurantManager.writeToFile(allOrder);
+	}
+
+	public static void main(String[] args) throws IOException {
 		RestaurantManager.init();
 		menu();
 		createList();
@@ -152,9 +227,10 @@ public class SkeRestaurant {
 			} else {
 				String inChoice = sc.next();
 				if (inChoice.equalsIgnoreCase("p")) {
-					bill(choiceC);
+					menuBill(choiceC);
 				}
 				if (inChoice.equalsIgnoreCase("q")) {
+					recordOrder();
 					System.out.print("Thank you");
 					break;
 				}
