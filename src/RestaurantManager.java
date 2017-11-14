@@ -1,5 +1,3 @@
-package Compro;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -22,15 +20,11 @@ public class RestaurantManager {
 
 	private static ArrayList<Double> isPrice = new ArrayList<Double>();
 
-	private static ArrayList<Integer> isOrder = new ArrayList<Integer>();
-
-	private static ArrayList<Double> isTotalPrice = new ArrayList<Double>();
-
 	/**
 	 * Read text form menu.txt
 	 */
 
-	public static void setMenu() {
+	public static void init() {
 		String menuFile = "data/menu.txt";
 		ClassLoader loader = RestaurantManager.class.getClassLoader();
 
@@ -81,32 +75,6 @@ public class RestaurantManager {
 	}
 
 	/**
-	 * create a room for value
-	 * 
-	 * @return
-	 */
-
-	public static ArrayList<Integer> getOrder() {
-		for (int i = 0; i < getMenuItems().length; i++) {
-			isOrder.add(0);
-		}
-		return isOrder;
-	}
-
-	/**
-	 * create a room for value
-	 * 
-	 * @return
-	 */
-
-	public static ArrayList<Double> getTotalPrice() {
-		for (int i = 0; i < getMenuItems().length; i++) {
-			isTotalPrice.add((double) 0);
-		}
-		return isTotalPrice;
-	}
-
-	/**
 	 * create RecordOrder.txt for save log of ske-restaurant.
 	 * 
 	 * @param allOrder
@@ -135,7 +103,7 @@ public class RestaurantManager {
 	 * @return
 	 */
 
-	public static String recordAllOrder(ArrayList<Integer> itemOrder) {
+	public static String recordOrder(ArrayList<Integer> itemOrder) {
 		String[] menu = RestaurantManager.getMenuItems();
 		String text = "";
 
@@ -152,9 +120,5 @@ public class RestaurantManager {
 	/**
 	 * Start Reading menu.txt
 	 */
-
-	public static void init() {
-		setMenu();
-	}
 
 }

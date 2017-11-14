@@ -1,4 +1,4 @@
-package Compro;
+
 
 import java.util.Scanner;
 import java.io.IOException;
@@ -109,7 +109,7 @@ public class SkeRestaurant {
 		double[] price = RestaurantManager.getPrices();
 		for (int i = 0; i < price.length; i++) {
 			if (choiceC == i + 1) {
-				totalPrice = (price[i] + itemPrice.get(i)) * choiceQ;
+				totalPrice = (price[i]* choiceQ) + itemPrice.get(i);
 				itemPrice.add(i, totalPrice);
 				itemPrice.remove(i + 1);
 			}
@@ -186,7 +186,10 @@ public class SkeRestaurant {
 
 	@SuppressWarnings("static-access")
 	public static ArrayList<Integer> setOrder() {
-		itemOrder = rm.getOrder();
+		String[] menu = rm.getMenuItems();
+		for (int i = 0; i < menu.length; i++) {
+			itemOrder.add(0);
+		}
 		return itemOrder;
 	}
 
@@ -198,7 +201,10 @@ public class SkeRestaurant {
 
 	@SuppressWarnings("static-access")
 	public static ArrayList<Double> setTotalPrice() {
-		itemPrice = rm.getTotalPrice();
+		String[] menu = rm.getMenuItems();
+		for (int i = 0; i < menu.length; i++) {
+			itemPrice.add((double) 0);
+		}
 		return itemPrice;
 	}
 
@@ -209,14 +215,14 @@ public class SkeRestaurant {
 	 */
 
 	public static void recordOrder() throws IOException {
-		String allOrder = RestaurantManager.recordAllOrder(itemOrder);
+		String allOrder = RestaurantManager.recordOrder(itemOrder);
 		RestaurantManager.writeToFile(allOrder);
 	}
 
 	public static void main(String[] args) throws IOException {
 		RestaurantManager.init();
-		menu();
 		createList();
+		menu();
 		int choiceC = 0;
 		do {
 			System.out.print("Enter your Choice: ");
