@@ -82,7 +82,7 @@ public class RestaurantManager {
 	 */
 
 	public static void writeToFile(String allOrder) throws IOException {
-		File createTxt = new File("src/data/RecordOrder.txt");
+		File createTxt = new File("data/RecordOrder.txt");
 		FileOutputStream saveLog;
 		try {
 			saveLog = new FileOutputStream(createTxt, true);
@@ -116,9 +116,5 @@ public class RestaurantManager {
 
 		return String.format("\nDate: " + LocalDate.now() + "\nTime: " + LocalTime.now() + "\nSales Log is \n%s", text);
 	}
-
-	/**
-	 * Start Reading menu.txt
-	 */
 
 }

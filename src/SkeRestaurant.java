@@ -19,9 +19,11 @@ public class SkeRestaurant {
 	static Scanner sc = new Scanner(System.in);
 
 	private static RestaurantManager rm;
-
+	/**
+	 *  Create ArrayList for record.
+	 *  customer didn't 
+	 */
 	private static ArrayList<Integer> itemOrder = new ArrayList<Integer>();
-
 	private static ArrayList<Double> itemPrice = new ArrayList<Double>();
 
 	/**
